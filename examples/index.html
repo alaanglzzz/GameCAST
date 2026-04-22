@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>X-Wing PRO</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+
+<div id="info">
+ X-Wing  <br>
+WASD mover | Q/E altura | ESPACIO disparar
+</div>
+
+<div id="hud">Vida: 100</div>
+
+<script type="importmap">
+{
+    "imports": {
+        "three": "../build/three.module.js",
+        "three/addons/": "./jsm/"
+    }
+}
+</script>
+
+<script type="module" src="./game.js"></script>
+
+</body>
+</html>

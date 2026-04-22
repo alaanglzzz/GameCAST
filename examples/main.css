@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial;
+    background: black;
+}
+
+#info {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+}
+
+#hud {
+    position: absolute;
+    top: 40px;
+    left: 10px;
+    color: red;
+    font-size: 20px;
+}
