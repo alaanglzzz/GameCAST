@@ -1,31 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <title>X-Wing PRO</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
 </head>
-
 <body>
 
-<div id="info">
- X-Wing  <br>
-WASD mover | Q/E altura | ESPACIO disparar
-</div>
+    <!-- PANTALLA DE INICIO -->
+    <div id="start-screen">
+        <div class="start-inner">
+            <div class="start-subtitle">REBEL ALLIANCE</div>
+            <h1 class="start-title">X-WING<br><span>PRO</span></h1>
+            <div class="start-divider"></div>
+            <div class="key-grid">
+                <div class="key-row"><span class="key">W / S</span> Acelerar / Frenar</div>
+                <div class="key-row"><span class="key">A / D</span> Girar</div>
+                <div class="key-row"><span class="key">Q / E</span> Subir / Bajar</div>
+                <div class="key-row"><span class="key">ESPACIO</span> Disparar (mantén)</div>
+                <div class="key-row"><span class="key">R</span> Reiniciar</div>
+            </div>
+            <button id="btn-start">INICIAR MISIÓN</button>
+        </div>
+    </div>
 
-<div id="hud">Vida: 100</div>
+    <!-- CROSSHAIR -->
+    <div id="crosshair"></div>
 
-<script type="importmap">
-{
-    "imports": {
-        "three": "../build/three.module.js",
-        "three/addons/": "./jsm/"
+    <!-- CONTROLES (esquina superior derecha) -->
+    <div id="info">
+        <div class="game-title">X-WING PRO</div>
+        <div class="controls">
+            <span class="key">WASD</span> Mover &nbsp;|&nbsp;
+            <span class="key">Q/E</span> Altura &nbsp;|&nbsp;
+            <span class="key">ESPACIO</span> Disparar
+        </div>
+    </div>
+
+    <!-- HUD PRINCIPAL (esquina inferior) -->
+    <div id="hud">
+        <!-- Velocímetro -->
+        <div class="hud-block" id="hud-vel">
+            <div class="hud-label">VELOCIDAD</div>
+            <div class="hud-big" id="vel-num">0</div>
+            <div class="hud-unit">MGS</div>
+        </div>
+
+        <!-- Vida + Escudo -->
+        <div class="hud-block" id="hud-bars">
+            <div class="hud-label">CASCO</div>
+            <div class="bar-track">
+                <div class="bar-fill" id="barra-vida"></div>
+            </div>
+            <div class="hud-label" style="margin-top:10px">ESCUDO</div>
+            <div class="bar-track">
+                <div class="bar-fill" id="barra-escudo"></div>
+            </div>
+        </div>
+
+        <!-- Score -->
+        <div class="hud-block" id="hud-score">
+            <div class="hud-label">PUNTUACIÓN</div>
+            <div class="hud-big" id="score-val">0</div>
+            <div class="hud-unit" id="kills-val">BAJAS: 0</div>
+            <div class="hud-wave" id="wave-val">OLEADA 1</div>
+        </div>
+    </div>
+
+    <!-- BANNER DE OLEADA -->
+    <div id="wave-banner"></div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "../build/three.module.js",
+            "three/addons/": "./jsm/"
+        }
     }
-}
-</script>
+    </script>
 
-<script type="module" src="./game.js"></script>
+    <script type="module" src="./game.js"></script>
 
 </body>
 </html>
