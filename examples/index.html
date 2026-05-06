@@ -9,79 +9,204 @@
 </head>
 <body>
 
-    <!-- PANTALLA DE INICIO -->
-    <div id="start-screen">
-        <div class="start-inner">
-            <div class="start-subtitle">REBEL ALLIANCE</div>
-            <h1 class="start-title">X-WING<br><span>PRO</span></h1>
-            <div class="start-divider"></div>
-            <div class="key-grid">
-                <div class="key-row"><span class="key">W / S</span> Acelerar / Frenar</div>
-                <div class="key-row"><span class="key">A / D</span> Girar</div>
-                <div class="key-row"><span class="key">Q / E</span> Subir / Bajar</div>
-                <div class="key-row"><span class="key">ESPACIO</span> Disparar (mantén)</div>
-                <div class="key-row"><span class="key">R</span> Reiniciar</div>
-            </div>
-            <button id="btn-start">INICIAR MISIÓN</button>
+<!-- ══════════════════════════════════════════
+     MENÚ PRINCIPAL
+══════════════════════════════════════════ -->
+<div id="main-menu">
+
+    <!-- Estrellas de fondo animadas -->
+    <canvas id="stars-canvas"></canvas>
+
+    <div class="menu-inner">
+
+        <!-- Logo -->
+        <div class="menu-badge">REBEL ALLIANCE · STARFIGHTER COMMAND</div>
+        <h1 class="menu-title">X-WING<br><span>PRO</span></h1>
+        <div class="menu-divider"></div>
+
+        <!-- Navegación -->
+        <nav class="menu-nav">
+            <button class="menu-btn active" id="btn-play">▶ &nbsp;INICIAR MISIÓN</button>
+            <button class="menu-btn" id="btn-customize">✦ &nbsp;PERSONALIZAR</button>
+            <button class="menu-btn" id="btn-controls">⌨ &nbsp;CONTROLES</button>
+        </nav>
+
+        <!-- Créditos del equipo -->
+        <div class="menu-credits">
+            <div class="credits-title">DESARROLLADORES</div>
+            <div class="credits-row">Alan Alessandro Gonzalez Arroyo <span class="credits-id">· 23201260</span></div>
+            <div class="credits-row">Jose Luis Gomez Cruz <span class="credits-id">· 23201260</span></div>
+            <div class="credits-row">Levi Jafeth Juarez Chilpa <span class="credits-id">· 23201260</span></div>
         </div>
+
+        <div class="menu-version">v2.0 · Three.js</div>
     </div>
 
-    <!-- CROSSHAIR -->
-    <div id="crosshair"></div>
+    <!-- ── PANEL: PERSONALIZAR ── -->
+    <div class="side-panel" id="panel-customize">
+        <div class="panel-title">✦ PERSONALIZAR</div>
 
-    <!-- CONTROLES (esquina superior derecha) -->
-    <div id="info">
-        <div class="game-title">X-WING PRO</div>
-        <div class="controls">
-            <span class="key">WASD</span> Mover &nbsp;|&nbsp;
-            <span class="key">Q/E</span> Altura &nbsp;|&nbsp;
-            <span class="key">ESPACIO</span> Disparar
-        </div>
-    </div>
-
-    <!-- HUD PRINCIPAL (esquina inferior) -->
-    <div id="hud">
-        <!-- Velocímetro -->
-        <div class="hud-block" id="hud-vel">
-            <div class="hud-label">VELOCIDAD</div>
-            <div class="hud-big" id="vel-num">0</div>
-            <div class="hud-unit">MGS</div>
-        </div>
-
-        <!-- Vida + Escudo -->
-        <div class="hud-block" id="hud-bars">
-            <div class="hud-label">CASCO</div>
-            <div class="bar-track">
-                <div class="bar-fill" id="barra-vida"></div>
-            </div>
-            <div class="hud-label" style="margin-top:10px">ESCUDO</div>
-            <div class="bar-track">
-                <div class="bar-fill" id="barra-escudo"></div>
+        <div class="option-group">
+            <div class="option-label">COLOR DE BALAS</div>
+            <div class="color-options" id="bullet-colors">
+                <div class="color-swatch selected" data-color="ff2200" style="background:#ff2200" title="Rojo"></div>
+                <div class="color-swatch" data-color="00eeff" style="background:#00eeff" title="Cian"></div>
+                <div class="color-swatch" data-color="00ff66" style="background:#00ff66" title="Verde"></div>
+                <div class="color-swatch" data-color="ff9900" style="background:#ff9900" title="Naranja"></div>
+                <div class="color-swatch" data-color="cc00ff" style="background:#cc00ff" title="Morado"></div>
+                <div class="color-swatch" data-color="ffff00" style="background:#ffff00" title="Amarillo"></div>
             </div>
         </div>
 
-        <!-- Score -->
-        <div class="hud-block" id="hud-score">
-            <div class="hud-label">PUNTUACIÓN</div>
-            <div class="hud-big" id="score-val">0</div>
-            <div class="hud-unit" id="kills-val">BAJAS: 0</div>
-            <div class="hud-wave" id="wave-val">OLEADA 1</div>
+        <div class="option-group">
+            <div class="option-label">COLOR DE CROSSHAIR</div>
+            <div class="color-options" id="crosshair-colors">
+                <div class="color-swatch selected" data-color="00e5ff" style="background:#00e5ff" title="Cian"></div>
+                <div class="color-swatch" data-color="00ff66" style="background:#00ff66" title="Verde"></div>
+                <div class="color-swatch" data-color="ff2200" style="background:#ff2200" title="Rojo"></div>
+                <div class="color-swatch" data-color="ffffff" style="background:#ffffff" title="Blanco"></div>
+                <div class="color-swatch" data-color="ffcc00" style="background:#ffcc00" title="Dorado"></div>
+            </div>
         </div>
+
+        <div class="option-group">
+            <div class="option-label">DIFICULTAD</div>
+            <div class="difficulty-options" id="difficulty-opts">
+                <button class="diff-btn" data-diff="easy">FÁCIL</button>
+                <button class="diff-btn selected" data-diff="normal">NORMAL</button>
+                <button class="diff-btn" data-diff="hard">DIFÍCIL</button>
+            </div>
+        </div>
+
+        <div class="option-group">
+            <div class="option-label">VOLUMEN MÚSICA</div>
+            <input type="range" id="vol-music" min="0" max="100" value="30" class="slider">
+            <div class="slider-val" id="vol-music-val">30%</div>
+        </div>
+
+        <div class="option-group">
+            <div class="option-label">VOLUMEN SFX</div>
+            <input type="range" id="vol-sfx" min="0" max="100" value="60" class="slider">
+            <div class="slider-val" id="vol-sfx-val">60%</div>
+        </div>
+
+        <button class="panel-close" id="close-customize">✕ CERRAR</button>
     </div>
 
-    <!-- BANNER DE OLEADA -->
-    <div id="wave-banner"></div>
+    <!-- ── PANEL: CONTROLES ── -->
+    <div class="side-panel" id="panel-controls">
+        <div class="panel-title">⌨ CONTROLES</div>
+        <div class="controls-grid">
+            <div class="ctrl-row"><span class="key">W</span><span class="key">S</span><span class="ctrl-desc">Acelerar / Frenar</span></div>
+            <div class="ctrl-row"><span class="key">A</span><span class="key">D</span><span class="ctrl-desc">Girar</span></div>
+            <div class="ctrl-row"><span class="key">Q</span><span class="key">E</span><span class="ctrl-desc">Subir / Bajar</span></div>
+            <div class="ctrl-row"><span class="key">ESPACIO</span><span class="ctrl-desc">Láser (mantén)</span></div>
+            <div class="ctrl-row"><span class="key">F</span><span class="ctrl-desc">Misil teledirigido</span></div>
+            <div class="ctrl-row"><span class="key">R</span><span class="ctrl-desc">Reiniciar</span></div>
+        </div>
+        <div class="panel-title" style="margin-top:20px">ENEMIGOS</div>
+        <div class="enemy-legend">
+            <div class="enemy-row"><span class="enemy-dot" style="background:#aabbcc"></span><strong>Normal</strong> — Persigue y dispara</div>
+            <div class="enemy-row"><span class="enemy-dot" style="background:#0066ff"></span><strong>Sniper</strong> — Disparo predictivo</div>
+            <div class="enemy-row"><span class="enemy-dot" style="background:#ff2200"></span><strong>Kamikaze</strong> — Impacto explosivo</div>
+            <div class="enemy-row"><span class="enemy-dot" style="background:#ff6600;width:18px;height:18px"></span><strong>BOSS</strong> — Aparece cada 5 oleadas</div>
+        </div>
+        <div class="panel-title" style="margin-top:20px">POWER-UPS ⚡</div>
+        <div class="enemy-legend">
+            <div class="enemy-row">🛡️ <strong>Escudo Total</strong> — Invulnerabilidad 10s</div>
+            <div class="enemy-row">🔱 <strong>Triple Disparo</strong> — 3 cañones 10s</div>
+            <div class="enemy-row">⚡ <strong>Fuego Rápido</strong> — Cadencia máxima 10s</div>
+            <div class="enemy-row">🚀 <strong>Misil ×3</strong> — Recarga instantánea</div>
+        </div>
+        <button class="panel-close" id="close-controls">✕ CERRAR</button>
+    </div>
 
-    <script type="importmap">
-    {
-        "imports": {
-            "three": "../build/three.module.js",
-            "three/addons/": "./jsm/"
-        }
+</div><!-- /main-menu -->
+
+
+<!-- ══════════════════════════════════════════
+     HUD DE JUEGO (oculto al inicio)
+══════════════════════════════════════════ -->
+
+<!-- Crosshair -->
+<div id="crosshair"></div>
+
+<!-- Info controles (esquina sup-der) -->
+<div id="info" style="display:none">
+    <div class="game-title">X-WING PRO</div>
+    <div class="controls-hint">
+        <span class="key">WASD</span> Mover &nbsp;|&nbsp;
+        <span class="key">Q/E</span> Altura &nbsp;|&nbsp;
+        <span class="key">ESPACIO</span> Láser &nbsp;|&nbsp;
+        <span class="key">F</span> Misil
+    </div>
+</div>
+
+<!-- Barra de BOSS -->
+<div id="boss-hud" style="display:none">
+    <div id="boss-title">⚠ DESTRUCTOR ESTELAR</div>
+    <div id="boss-bar-track"><div id="boss-bar"></div></div>
+    <div id="boss-phase">FASE 1</div>
+</div>
+
+<!-- Combo multiplier -->
+<div id="combo-display" style="display:none">
+    <div id="combo-num">×2</div>
+    <div id="combo-label">COMBO</div>
+</div>
+
+<!-- Power-up activo -->
+<div id="powerup-display" style="display:none">
+    <span id="powerup-icon">⚡</span>
+    <span id="powerup-name">FUEGO RÁPIDO</span>
+    <div id="powerup-timer-track"><div id="powerup-timer-bar"></div></div>
+</div>
+
+<!-- Misiles -->
+<div id="missile-hud" style="display:none">
+    <div class="hud-label">MISILES</div>
+    <div id="missile-slots">
+        <div class="missile-slot active" id="ms0">◆</div>
+        <div class="missile-slot active" id="ms1">◆</div>
+        <div class="missile-slot active" id="ms2">◆</div>
+    </div>
+</div>
+
+<!-- HUD principal -->
+<div id="hud" style="display:none">
+    <div class="hud-block" id="hud-vel">
+        <div class="hud-label">VELOCIDAD</div>
+        <div class="hud-big" id="vel-num">0</div>
+        <div class="hud-unit">MGS</div>
+    </div>
+    <div class="hud-block" id="hud-bars">
+        <div class="hud-label">CASCO</div>
+        <div class="bar-track"><div class="bar-fill" id="barra-vida"></div></div>
+        <div class="hud-label" style="margin-top:10px">ESCUDO</div>
+        <div class="bar-track"><div class="bar-fill" id="barra-escudo"></div></div>
+    </div>
+    <div class="hud-block" id="hud-score">
+        <div class="hud-label">PUNTUACIÓN</div>
+        <div class="hud-big" id="score-val">0</div>
+        <div class="hud-unit" id="kills-val">BAJAS: 0</div>
+        <div class="hud-wave" id="wave-val">OLEADA 1</div>
+    </div>
+</div>
+
+<!-- Banner de oleada/boss -->
+<div id="wave-banner"></div>
+
+<!-- Notificación de daño (pantalla roja) -->
+<div id="damage-flash"></div>
+
+<script type="importmap">
+{
+    "imports": {
+        "three": "../build/three.module.js",
+        "three/addons/": "./jsm/"
     }
-    </script>
-
-    <script type="module" src="./game.js"></script>
-
+}
+</script>
+<script type="module" src="./game.js"></script>
 </body>
 </html>
